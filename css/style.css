@@ -25,3 +25,9 @@ body {
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
+
+  td[colspan]:not([colspan="1"]) {
+    background: #000;
+    color:#fff;
+    font-weight: 600;
+   }
