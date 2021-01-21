@@ -1,0 +1,146 @@
+[
+    {
+        "joueurs_proteges": [
+            "6059",
+            "6798",
+            "6804",
+            "6819",
+            "6956"
+        ],
+        "nbr_joueurs": 8,        
+        "owner_id": "596079981566681088",
+        "owner_nick": "Fred Jean"
+    },
+    {
+        "joueurs_proteges": [
+            "6059",
+            "6798",
+            "6804",
+            "6819",
+            "6956"
+        ],
+        "nbr_joueurs": 7,
+        "owner_id": "484227143023194112",
+        "owner_nick": "Ian Boucher"
+    },
+    {
+        "joueurs_proteges": [
+            "6059",
+            "6798",
+            "6804",
+            "6819",
+            "6956"
+        ],
+        "nbr_joueurs": 10,
+        "owner_id": "590563686884614144",
+        "owner_nick": "JF Trudeau"
+    },
+    {
+        "joueurs_proteges": [
+            "6059",
+            "6798",
+            "6804",
+            "6819",
+            "6956"
+        ],
+        "nbr_joueurs": 6,
+        "owner_id": "474015432420880384",
+        "owner_nick": "Inouk Babin-R"
+    },
+    {
+        "joueurs_proteges": [
+            "6059",
+            "6798",
+            "6804",
+            "6819",
+            "6956"
+        ],
+        "nbr_joueurs": 8,
+        "owner_id": "591256971588448256",
+        "owner_nick": "Martin Desmarais"
+    },
+    {
+        "joueurs_proteges": [
+            "6059",
+            "6798",
+            "6804",
+            "6819",
+            "6956"
+        ],
+        "nbr_joueurs": 7,
+        "owner_id": "335454233417515008",
+        "owner_nick": "Samuel Comeau"
+    },
+    {
+        "joueurs_proteges": [
+            "6059",
+            "6798",
+            "6804",
+            "6819",
+            "6956"
+        ],
+        "nbr_joueurs": 6,
+        "owner_id": "590611424028434432",
+        "owner_nick": "Normand Bros."
+    },
+    {
+        "joueurs_proteges": [
+            "6059",
+            "6798",
+            "6804",
+            "6819",
+            "6956"
+        ],
+        "nbr_joueurs": 10,
+        "owner_id": "335249116051296256",
+        "owner_nick": "PO Trudeau"
+    },
+    {
+        "joueurs_proteges": [
+            "6059",
+            "6798",
+            "6804",
+            "6819",
+            "6956"
+        ],
+        "nbr_joueurs": 6,
+        "owner_id": "591271559289671680",
+        "owner_nick": "Éric Desgagnés"
+    },
+    {
+        "joueurs_proteges": [
+            "6059",
+            "6798",
+            "6804",
+            "6819",
+            "6956"
+        ],
+        "nbr_joueurs": 8,
+        "owner_id": "591404060192591872",
+        "owner_nick": "MA Daigneault"
+    },
+    {
+        "joueurs_proteges": [
+            "6059",
+            "6798",
+            "6804",
+            "6819",
+            "6956"
+        ],
+        "nbr_joueurs": 7,
+        "owner_id": "331634294617292800",
+        "owner_nick": "Vincent Bessette"
+    },    
+    {
+        "joueurs_proteges": [
+            "6059",
+            "6798",
+            "6804",
+            "6819",
+            "6956"
+        ],
+        "nbr_joueurs": 10,
+        "owner_id": "335085800989425664",
+        "owner_nick": "Marc Drolet"
+    }    
+]
