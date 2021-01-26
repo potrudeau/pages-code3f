@@ -39,5 +39,43 @@ function fixTeamname(name) {
         default:
             return name;
     }
-
 }
+
+function fixNbrJoueurs(nbr) {
+    switch (nbr) {
+        case 6:
+            return "6 joueurs (max 2 RB)"
+            break;
+        case 7:
+            return "7 joueurs (max 2 RB)"
+            break;
+        case 8:
+            return "8 joueurs (max 3 RB)"
+            break;
+        case 10:
+            return "10 joueurs (max 3 RB) ou<br> 9 joueurs"
+            break;        
+        default:
+            return null;
+    }    
+}
+
+function findPlayer(json, playerID) {
+    for (var k in json) {
+        if (k == playerID) 
+            return json[k];        
+    }
+    return null;
+}
+
+
+
+$(function() {
+
+    var $list = $("#list");
+  
+    $list.children().detach().sort(function(a, b) {
+      return $(a).text().localeCompare($(b).text());
+    }).appendTo($list);
+  
+  });

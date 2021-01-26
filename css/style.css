@@ -31,3 +31,14 @@ body {
     color:#fff;
     font-weight: 600;
    }
+
+  .table td 
+  {
+    vertical-align: top !important;
+  }
+
+ul
+  {
+    padding-left: 0px;
+  list-style-type:none;
+}

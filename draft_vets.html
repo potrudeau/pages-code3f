@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>3F / Repêchage des vétérans</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link href="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/extensions/group-by-v2/bootstrap-table-group-by.min.js"></script>
+  <script src="https://far-nyon.ch/assets/js/tinysort/src/jquery.tinysort.min.js"></script>
+  <script src="js/3f.js"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <h1>3F / Repêchage des vétérans</h1>
+    <table 
+      id="table" 
+      data-valign="top"
+      data-toggle="table" 
+      data-sort-name="owner_name" 
+      data-sort-order="asc"
+      data-response-handler="responseHandler" 
+      data-url="data/2021-repechage-vets.json">
+      <thead>
+        <tr>
+          <th data-field="owner_name" data-sortable="false" >Équipe</th>          
+          <th data-field="players_protected" data-sortable="false">Protegés</th>
+          <th data-field="players_taxi" data-sortable="false">Taxi</th>
+          <th data-field="players_dispo" data-sortable="false">Disponibles</th>          
+        </tr>
+      </thead>
+    </table>
+  </div> <!-- /container -->
+
+  <script>
+
+    $('#table').on('load-success.bs.table', function (data) {    
+      $('.playerlist >li').tsort();
+    })
+
+    function responseHandler(res) {
+
+      var players = $.ajax({
+        url: "data/players.json",
+        async: false,
+        dataType: 'json'
+      }).responseJSON[0];
+
+      var rosters = $.ajax({
+        url: "https://api.sleeper.app/v1/league/650201144399839232/rosters",
+        async: false,
+        dataType: 'json'
+      }).responseJSON;
+
+      var flatArray = [];
+      $.each(res, function (i, element) {
+        var owner = element.owner_id;
+        var nbr_joueurs = element.nbr_joueurs;
+        
+        // protected players
+        var playersProtectedList = "<ul class='playerlist'>";
+        $.each(element.joueurs_proteges, function (i, joueurs) {
+          var player = findPlayer(players, joueurs);
+          var playerName = player.last_name + ', ' + player.first_name + ' (' + player.position + ')';
+          playersProtectedList += '<li>' + playerName + '</li>';
+        });
+        playersProtectedList += "</ul>";
+
+        // taxi
+        var playersTaxiList = "<ul class='playerlist'>";
+        $.each(rosters, function (i, equipe) {
+          if (equipe.owner_id == owner) {
+            $.each(equipe.taxi, function (i, joueurs) {
+              var player = findPlayer(players, joueurs);
+              var playerName = player.last_name + ', ' + player.first_name + ' (' + player.position + ')';
+              playersTaxiList += '<li>' + playerName + '</li>';
+            });
+          }
+        });
+        playersTaxiList += "</ul>";
+
+        // dispo        
+        var playersDisponibleList = "<ul class='playerlist'>";
+        $.each(rosters, function (i, equipe) {
+          if (equipe.owner_id == owner) {
+            $.each(equipe.players, function (i, joueurs) {
+              var player = findPlayer(players, joueurs);
+              var playerName = player.last_name + ', ' + player.first_name + ' (' + player.position + ')';
+              if (!playersProtectedList.includes(playerName) && !playersTaxiList.includes(playerName))
+                playersDisponibleList += '<li>' + playerName + '</li>';
+            });
+          }
+        });
+        playersDisponibleList += "</ul>";
+
+        flatArray.push({
+          owner_name: fixTeamname(owner) + "<br><small>" + fixNbrJoueurs(nbr_joueurs) + "</small>",
+          nbr_joueurs: fixNbrJoueurs(nbr_joueurs),
+          players_protected: playersProtectedList,
+          players_dispo: playersDisponibleList,
+          players_taxi: playersTaxiList
+        });
+
+      });
+
+      return flatArray;
+    }
+  </script>
+
+</body>
+
+</html>
