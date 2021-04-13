@@ -1,7 +1,7 @@
 function fixTeamname(name) {
     switch (name) {
         case "596079981566681088":
-            return "Fred Jean"
+            return "Felix Jean"
             break;
         case "484227143023194112":
             return "Ian Boucher"
