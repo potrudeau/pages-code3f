@@ -60,6 +60,25 @@ function fixNbrJoueurs(nbr) {
     }    
 }
 
+function fixCollege(college) {
+    switch (college) {
+        case "Brigham Young":
+            return "BYU"
+            break;
+        case "Miami, O.":
+            return "Miami (Ohio)"
+            break;
+        case "Louisiana State":
+            return "LSU"
+            break;
+        case "Southern California":
+            return "USC"
+            break;        
+        default:
+            return college;
+    }    
+}
+
 function findPlayer(json, playerID) {
     for (var k in json) {
         if (k == playerID) 
