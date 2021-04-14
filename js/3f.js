@@ -73,7 +73,31 @@ function fixCollege(college) {
             break;
         case "Southern California":
             return "USC"
-            break;        
+            break;      
+        case "North Carolina State":
+            return "NC State"
+            break;      
+        case "Texas Christian":
+            return "TCU"
+            break;      
+        case "Mississippi":
+            return "Ole Miss"
+            break;  
+        case "Southern Methodist":
+            return "SMU"
+            break; 
+        case "Central Florida":
+            return "UCF"
+            break;  
+        case "Florida Atlantic":
+            return "FAU"
+            break; 
+        case "Florida International":
+            return "FIU"
+            break;      
+        case "Texas-El Paso":
+            return "UTEP"
+            break;              
         default:
             return college;
     }    
