@@ -44,6 +44,7 @@
         var flatArray = [];
         $.each(res, function (i, element) {
           $.each(element, function (k, joueurs) {
+            console.log(joueurs.position);
             flatArray.push(joueurs);
           });
         });
