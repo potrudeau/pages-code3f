@@ -46,20 +46,24 @@
     <script>
       function responseHandler(res) {
         var flatArray = [];
+        var acceptedPositions = ["QB","RB","WR","TE"];
         $.each(res, function (i, element) {
           $.each(element, function (k, joueurs) {
                       
-            flatArray.push({                  
-                  player_id: joueurs.player_id,
-                  player_name: joueurs.last_name + ', ' + joueurs.first_name,
-                  player_position: joueurs.position,
-                  player_age: joueurs.age,
-                  player_height: joueurs.height,
-                  player_weight: joueurs.weight,
-                  player_college: fixCollege(joueurs.college),
-                  player_exp: joueurs.years_exp + 1,
-                  player_nfl: joueurs.team
-                });
+            if (acceptedPositions.includes(joueurs.position))
+            {
+              flatArray.push({                  
+                    player_id: joueurs.player_id,
+                    player_name: joueurs.last_name + ', ' + joueurs.first_name,
+                    player_position: joueurs.position,
+                    player_age: joueurs.age,
+                    player_height: joueurs.height,
+                    player_weight: joueurs.weight,
+                    player_college: fixCollege(joueurs.college),
+                    player_exp: joueurs.years_exp + 1,
+                    player_nfl: joueurs.team
+                  });
+            }
 
           });
         });
