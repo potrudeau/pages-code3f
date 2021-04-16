@@ -42,3 +42,8 @@ body {
     padding-left: 0px;
   list-style-type:none;
 }
+
+.error
+{
+  color: red;
+}

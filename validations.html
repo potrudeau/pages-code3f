@@ -29,15 +29,14 @@
           <th data-field="user_name" data-sortable="false" data-visible="false">Usager</th>
           <th data-field="team_name" data-sortable="false" data-visible="false">Équipe</th>
           <th data-field="id" data-sortable="false" data-visible="false">ID</th>
-          <th data-field="team_players" data-sortable="false">Alignement</th>
-          <th data-field="team_taxi" data-sortable="false">Taxi squad</th>
+          <th data-field="team_players" data-sortable="false" data-visible="false">Alignement</th>
+          <th data-field="team_taxi" data-sortable="false" data-visible="false">Taxi squad</th>
           <th data-field="team_nbr" data-sortable="false">Nbr joueurs</th>
           <th data-field="team_qb" data-sortable="false">QB</th>
           <th data-field="team_rb" data-sortable="false">RB</th>
           <th data-field="team_wr" data-sortable="false">WR</th>
           <th data-field="team_te" data-sortable="false">TE</th>
-          <th data-field="team_taxi_ok" data-sortable="false">Taxi</th>
-
+          <th data-field="team_taxi_ok" data-sortable="false">Taxi errors</th>
         </tr>
       </thead>
     </table>
@@ -60,51 +59,66 @@
 
       var flatArray = [];
       $.each(res, function (i, element) {
-        
+
         // taxi
         var playersTaxiList = "<ul class='playerlist'>";
-        $.each(rosters, function (i, equipe) {          
-          if (equipe.owner_id == element.user_id) {            
-            $.each(equipe.taxi, function (i, joueurs) {              
-              var player = findPlayer(players, joueurs);              
-              var exp = player.years_exp + 1
+        $.each(rosters, function (i, equipe) {
+          if (equipe.owner_id == element.user_id) {
+            $.each(equipe.taxi, function (i, joueurs) {
+              var player = findPlayer(players, joueurs);
+              var exp = ((player.years_exp + 1) < 2) ? "OK" : "Error";
               var playerName = player.last_name + ', ' + player.first_name + ' (' + player.position + ')' + ' (exp' + exp + ')';
               playersTaxiList += '<li>' + playerName + '</li>';
             });
           }
         });
-        playersTaxiList += "</ul>";        
-      
+        playersTaxiList += "</ul>";
+
         // roster
-        var playersDisponibleList = "<ul class='playerlist'>";
+        var playersRosterList = "c";
         $.each(rosters, function (i, equipe) {
           if (equipe.owner_id == element.user_id) {
             $.each(equipe.players, function (i, joueurs) {
               var player = findPlayer(players, joueurs);
               var playerName = player.last_name + ', ' + player.first_name + ' (' + player.position + ')';
               if (!playersTaxiList.includes(playerName))
-                playersDisponibleList += '<li>' + playerName + '</li>';
+                playersRosterList += '<li>' + playerName + '</li>';
             });
           }
         });
-        playersDisponibleList += "</ul>";        
+        playersRosterList += "</ul>";
+
+        var playerQB = playersRosterList.split("(QB)").length - 1;
+        var playerRB = playersRosterList.split("(RB)").length - 1;;
+        var playerWR = playersRosterList.split("(WR)").length - 1;;
+        var playerTE = playersRosterList.split("(TE)").length - 1;;
+        var playerTotal = playerQB + playerRB + playerWR + playerTE;
+        var taxiOK = playersTaxiList.split("(expError)").length - 1;
+
+        if (taxiOK > 0)
+          taxiOK = "<p class='error'>" + taxiOK + "</p>";
+
+        if (playerQB > 3)
+          playerQB = "<p class='error'>" + playerQB + "</p>";
+
+        if (playerTotal > 21)
+          playerTotal = "<p class='error'>" + playerTotal + "</p>";
 
         flatArray.push({
           id: element.user_id,
           user_name: element.display_name,
           team_name: element.metadata.team_name,
           corrected_name: fixTeamname(element.user_id),
-          team_players : playersDisponibleList,
-          team_taxi : playersTaxiList,
-          team_nbr : 44,
-          team_qb : 0,
-          team_rb : 1,
-          team_wr : 2,
-          team_te : 3,
-          team_taxi_ok : 4,
+          team_players: playersRosterList,
+          team_taxi: playersTaxiList,
+          team_nbr: playerTotal,
+          team_qb: playerQB,
+          team_rb: playerRB,
+          team_wr: playerWR,
+          team_te: playerTE,
+          team_taxi_ok: taxiOK,
         });
       });
-
 
       return flatArray;
     }
