@@ -66,7 +66,7 @@
           if (equipe.owner_id == element.user_id) {
             $.each(equipe.taxi, function (i, joueurs) {
               var player = findPlayer(players, joueurs);
-              var exp = ((player.years_exp + 1) < 2) ? "OK" : "Error";
+              var exp = ((player.years_exp + 1) < 3) ? "OK" : "Error";
               var playerName = player.last_name + ', ' + player.first_name + ' (' + player.position + ')' + ' (exp' + exp + ')';
               playersTaxiList += '<li>' + playerName + '</li>';
             });
