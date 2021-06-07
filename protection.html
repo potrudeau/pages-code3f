@@ -45,7 +45,7 @@
 
   <script>
 
-    $('#table').on('load-success.bs.table', function (data) {    
+    $('#table').on('load-success.bs.table', function (data) {
       $('.playerlist >li').tsort();
     })
 
@@ -67,7 +67,7 @@
       $.each(res, function (i, element) {
         var owner = element.owner_id;
         var nbr_joueurs = element.nbr_joueurs;
-        
+
         // protected players
         var playersProtectedList = "<ul class='playerlist'>";
         $.each(element.joueurs_proteges, function (i, joueurs) {

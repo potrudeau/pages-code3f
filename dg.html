@@ -26,8 +26,7 @@
         data-sort-name="corrected_name" 
         data-sort-order="asc"    
         data-url="https://api.sleeper.app/v1/league/650201144399839232/users"
-        data-response-handler="responseHandler"
-        >
+        data-response-handler="responseHandler">
         <thead>
           <tr>            
             <th data-field="corrected_name" data-sortable="false">Nom</th>
@@ -45,14 +44,13 @@
         $.each(res, function (i, element) {
           console.log(element)
 
-          flatArray.push({                
-                id: element.user_id,
-                user_name : element.display_name,
-                team_name: element.metadata.team_name,
-                corrected_name : fixTeamname(element.user_id)
-              });
+          flatArray.push({
+            id: element.user_id,
+            user_name: element.display_name,
+            team_name: element.metadata.team_name,
+            corrected_name: fixTeamname(element.user_id)
+          });
         });
-
 
         return flatArray;
       }

@@ -60,13 +60,13 @@
         url: "data/2021-repechage-vets.json",
         async: false,
         dataType: 'json'
-      }).responseJSON;      
+      }).responseJSON;
 
       var protectedPlayers = [];
       $.each(protectedList, function (i, element) {
         for (var k in element.joueurs_proteges) {
-          protectedPlayers.push(element.joueurs_proteges[k].toString())          
-        }    
+          protectedPlayers.push(element.joueurs_proteges[k].toString())
+        }
       });
 
       var flatArray = [];
@@ -76,12 +76,11 @@
         $.each(element.players, function (i, joueurs) {
           for (var k in players) {
             if (k == joueurs) {
-          
+
               var playerProtected = protectedPlayers.includes(players[k].player_id) ? true : false
-              var playerTaxi = element.taxi.includes(k) ? true: false
-              
-              if (!playerTaxi && !playerProtected)
-              {
+              var playerTaxi = element.taxi.includes(k) ? true : false
+
+              if (!playerTaxi && !playerProtected) {
                 flatArray.push({
                   owner_name: fixTeamname(owner),
                   player_id: joueurs,
@@ -116,5 +115,4 @@
   </script>
 
 </body>
-
 </html>
